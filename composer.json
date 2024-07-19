@@ -1,0 +1,27 @@
+{
+  "name": "mavenbird/module-sorting",
+  "description": "Improved Sorting Extension for Magento 2",
+  "require": {
+    "php": ">=8.0.0"
+  },
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": "Commercial",
+  "authors": [
+    {
+      "name": "Mavenbird",
+      "email": "support@mavenbird.com",
+      "homepage": "https://www.mavenbird.com",
+      "role": "Technical Support"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Mavenbird\\Sorting\\": ""
+    }
+  }
+}
+  

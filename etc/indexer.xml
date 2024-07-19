@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="mavenbird_sorting_bestseller" view_id="mavenbird_sorting_bestseller" class="Mavenbird\Sorting\Model\Indexer\Bestsellers\BestsellersIndexer">
+        <title translate="true">Mavenbird Improved Sorting - Bestsellers</title>
+        <description translate="true">Index Bestsellers. 'Update on Save' - to execute once a day by cron</description>
+    </indexer>
+    <indexer id="mavenbird_sorting_most_viewed" view_id="mavenbird_sorting_most_viewed" class="Mavenbird\Sorting\Model\Indexer\MostViewed\MostViewedIndexer">
+        <title translate="true">Mavenbird Improved Sorting - Most Viewed</title>
+        <description translate="true">Index Product Views. 'Update on Save' - to execute once a day by cron</description>
+    </indexer>
+    <indexer id="mavenbird_sorting_wished" view_id="mavenbird_sorting_wished" class="Mavenbird\Sorting\Model\Indexer\Wished\WishedIndexer">
+        <title translate="true">Mavenbird Improved Sorting - Wishlists</title>
+        <description translate="true">Index Wishlists. 'Update on Save' - to execute once a day by cron</description>
+    </indexer>
+</config>

@@ -1,0 +1,46 @@
+<?php
+/**
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+ */
+?>
+<?php
+/** @var \Mavenbird\Sorting\Block\Widget\Featured $block */
+?>
+<?php if (($_products = $block->getProductCollection()) && $_products->getSize()): ?>
+    <div class="block widget sorting block-featured-products-images">
+        <?php if ($block->getTitle()): ?>
+            <div class="block-title">
+                <strong><?= $escaper->escapeHtml(__($block->getTitle())) ?></strong>
+            </div>
+        <?php endif ?>
+        <div class="block-content">
+            <?php $suffix = $block->getNameInLayout(); ?>
+            <ol id="widget-featured-products-<?=/* @noEscape */ $suffix ?>" class="product-items product-items-images">
+                <?php foreach ($_products->getItems() as $_product): ?>
+                    <li class="product-item">
+                        <a class="product-item-photo" href="<?=/* @noEscape */ $_product->getProductUrl() ?>"
+                           title="<?=/* @noEscape */ $block->stripTags($_product->getName(), null, true) ?>">
+                            <?= $block->getImage($_product, 'featured_products_sidebar')->toHtml() ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+            <?= $block->getPagerHtml() ?>
+        </div>
+    </div>
+<?php endif; ?>

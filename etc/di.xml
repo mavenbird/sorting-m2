@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Mavenbird\Sorting\Api\IndexMethodWrapperInterface" type="Mavenbird\Sorting\Model\IndexMethodWrapper"/>
+    <virtualType name="Mavenbird\Sorting\Model\Indexer\Wished\WishedIndexer" type="Mavenbird\Sorting\Model\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexBuilder" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Wished</argument>
+            <argument name="helper" xsi:type="object">Mavenbird\Sorting\Helper\Data</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="cacheContext" xsi:type="object">Magento\Framework\Indexer\CacheContext</argument>
+            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\ManagerInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\Indexer\Wished\System\Config\WishedInvalidate" type="Mavenbird\Sorting\Model\Indexer\ConfigInvalidateAbstract">
+        <arguments>
+            <argument name="context" xsi:type="object">Magento\Framework\Model\Context</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+            <argument name="config" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface</argument>
+            <argument name="cacheTypeList" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="indexProcessor" xsi:type="object">Mavenbird\Sorting\Model\Indexer\Wished\WishedProcessor</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\Indexer\Bestsellers\BestsellersIndexer" type="Mavenbird\Sorting\Model\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexBuilder" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Bestselling</argument>
+            <argument name="helper" xsi:type="object">Mavenbird\Sorting\Helper\Data</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="cacheContext" xsi:type="object">Magento\Framework\Indexer\CacheContext</argument>
+            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\ManagerInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\Indexer\Bestsellers\System\Config\BestsellersInvalidate" type="Mavenbird\Sorting\Model\Indexer\ConfigInvalidateAbstract">
+        <arguments>
+            <argument name="context" xsi:type="object">Magento\Framework\Model\Context</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+            <argument name="config" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface</argument>
+            <argument name="cacheTypeList" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="indexProcessor" xsi:type="object">Mavenbird\Sorting\Model\Indexer\Bestsellers\BestsellersProcessor</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\Indexer\MostViewed\MostViewedIndexer" type="Mavenbird\Sorting\Model\Indexer\AbstractIndexer">
+        <arguments>
+            <argument name="indexBuilder" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\MostViewed</argument>
+            <argument name="helper" xsi:type="object">Mavenbird\Sorting\Helper\Data</argument>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="cacheContext" xsi:type="object">Magento\Framework\Indexer\CacheContext</argument>
+            <argument name="eventManager" xsi:type="object">Magento\Framework\Event\ManagerInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\Indexer\MostViewed\System\Config\MostViewedInvalidate" type="Mavenbird\Sorting\Model\Indexer\ConfigInvalidateAbstract">
+        <arguments>
+            <argument name="context" xsi:type="object">Magento\Framework\Model\Context</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+            <argument name="config" xsi:type="object">Magento\Framework\App\Config\ScopeConfigInterface</argument>
+            <argument name="cacheTypeList" xsi:type="object">Magento\Framework\App\Cache\TypeListInterface</argument>
+            <argument name="indexProcessor" xsi:type="object">Mavenbird\Sorting\Model\Indexer\MostViewed\MostViewedProcessor</argument>
+        </arguments>
+    </virtualType>
+    <!-- initialize sorting methods -->
+    <type name="Mavenbird\Sorting\Model\ResourceModel\Method\Bestselling">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">bestsellers</argument>
+            <argument name="methodName" xsi:type="string">Best Sellers</argument>
+            <argument name="indexResource" xsi:type="object">\Magento\Sales\Model\ResourceModel\Order</argument>
+            <argument name="data" xsi:type="array">
+                <item name="ignoredProductTypes" xsi:type="array">
+                    <!--<item name="bundle" xsi:type="const">\Magento\Catalog\Model\Product\Type::TYPE_BUNDLE</item>-->
+                    <!--<item name="grouped" xsi:type="const">Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE</item>-->
+                    <!--<item name="configurable" xsi:type="const">\Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE</item>-->
+                </item>
+                <item name="orderItemCollectionFactory" xsi:type="object">\Magento\Sales\Model\ResourceModel\Order\Item\CollectionFactory</item>
+                <item name="productResource" xsi:type="object">\Magento\Catalog\Model\ResourceModel\Product\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\ResourceModel\Method\Toprated">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">rating_summary</argument>
+            <argument name="methodName" xsi:type="string">Top Rated</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\ResourceModel\Method\Commented">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">reviews_count</argument>
+            <argument name="methodName" xsi:type="string">Reviews Count</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\ResourceModel\Method\MostViewed">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">most_viewed</argument>
+            <argument name="methodName" xsi:type="string">Most Viewed</argument>
+            <argument name="indexResource" xsi:type="object">\Magento\Reports\Model\ResourceModel\Event</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\ResourceModel\Method\Wished">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">wished</argument>
+            <argument name="methodName" xsi:type="string">Now in Wishlists</argument>
+            <argument name="indexResource" xsi:type="object">\Magento\Wishlist\Model\ResourceModel\Item</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\ResourceModel\Method\Newest">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">new</argument>
+            <argument name="methodName" xsi:type="string">New</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\ResourceModel\Method\Saving">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">saving</argument>
+            <argument name="methodName" xsi:type="string">Biggest Saving</argument>
+        </arguments>
+    </type>
+    <virtualType name="Mavenbird\Sorting\Model\ResourceModel\Method\PriceAsc" type="Mavenbird\Sorting\Model\ResourceModel\Method\Price">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">price_asc</argument>
+            <argument name="methodName" xsi:type="string">Price: low to high</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\ResourceModel\Method\PriceDesc" type="Mavenbird\Sorting\Model\ResourceModel\Method\Price">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">price_desc</argument>
+            <argument name="methodName" xsi:type="string">Price: high to low</argument>
+        </arguments>
+    </virtualType>
+    <!--initialize sorting methods with index-->
+    <virtualType name="Mavenbird\Sorting\Model\BestsellersWrapper" type="Mavenbird\Sorting\Model\IndexMethodWrapper">
+        <arguments>
+            <argument name="source" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Bestselling</argument>
+            <argument name="indexer" xsi:type="object">Mavenbird\Sorting\Model\Indexer\Bestsellers\BestsellersIndexer</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\MostViewedWrapper" type="Mavenbird\Sorting\Model\IndexMethodWrapper">
+        <arguments>
+            <argument name="source" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\MostViewed</argument>
+            <argument name="indexer" xsi:type="object">Mavenbird\Sorting\Model\Indexer\MostViewed\MostViewedIndexer</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Mavenbird\Sorting\Model\WishedWrapper" type="Mavenbird\Sorting\Model\IndexMethodWrapper">
+        <arguments>
+            <argument name="source" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Wished</argument>
+            <argument name="indexer" xsi:type="object">Mavenbird\Sorting\Model\Indexer\Wished\WishedIndexer</argument>
+        </arguments>
+    </virtualType>
+    <!-- collection of sorting methods -->
+    <type name="Mavenbird\Sorting\Model\MethodProvider">
+        <arguments>
+            <argument name="indexedMethods" xsi:type="array">
+                <item name="bestsellers" xsi:type="object">Mavenbird\Sorting\Model\BestsellersWrapper</item>
+                <item name="most_viewed" xsi:type="object">Mavenbird\Sorting\Model\MostViewedWrapper</item>
+                <item name="wished" xsi:type="object">Mavenbird\Sorting\Model\WishedWrapper</item>
+            </argument>
+            <argument name="methods" xsi:type="array">
+                <item name="bestsellers" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Bestselling</item>
+                <item name="most_viewed" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\MostViewed</item>
+                <item name="wished" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Wished</item>
+                <item name="reviews_count" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Commented</item>
+                <item name="rating_summary" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Toprated</item>
+                <item name="newest" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Newest</item>
+                <item name="saving" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Saving</item>
+                <item name="price_asc" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\PriceAsc</item>
+                <item name="price_desc" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\PriceDesc</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Config">
+        <plugin name="Mavenbird_Sorting::AddSortingMethods" type="Mavenbird\Sorting\Plugin\Catalog\Config"/>
+    </type>
+    <type name="Mavenbird\VisualMerch\Model\Product\Sorting\ImprovedSorting\MethodBuilder">
+        <arguments>
+            <argument name="methods" xsi:type="array">
+                <item name="rating_summary" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Toprated</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">10</item>
+                </item>
+                <item name="most_viewed" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\MostViewed</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">20</item>
+                </item>
+                <item name="bestsellers" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Bestselling</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">30</item>
+                </item>
+                <item name="saving" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Saving</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">40</item>
+                </item>
+                <item name="reviews_count" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Commented</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">50</item>
+                </item>
+                <item name="wished" xsi:type="array">
+                    <item name="method_instance" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Wished</item>
+                    <item name="method_direction" xsi:type="string">DESC</item>
+                    <item name="sort_order" xsi:type="string">60</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Model\ProductTypes\Config\Reader">
+        <arguments>
+            <argument name="idAttributes" xsi:type="array">
+                <item name="/config/type/stockIndexerModel" xsi:type="string"/>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Attribute\Collection">
+        <plugin name="Mavenbird_Sorting::attributes_for_elastic_232"
+                type="Mavenbird\Sorting\Plugin\Catalog\Model\ResourceModel\Product\Attribute\Collection"/>
+    </type>
+
+    <type name="Magento\Elasticsearch\Model\Adapter\FieldMapper\Product\AttributeAdapter">
+        <plugin name="Mavenbird_Sorting::make_sorting_attributes_sortable"
+                type="Mavenbird\Sorting\Plugin\Elasticsearch\Model\Adapter\FieldMapper\Product\AttributeAdapter"/>
+    </type>
+
+    <type name="Mavenbird\Sorting\Plugin\Elasticsearch\Model\Adapter\BatchDataMapper\AdditionalProductDataMapper">
+        <arguments>
+            <argument name="dataMappers" xsi:type="array">
+                <item name="bestseller"
+                      xsi:type="object">Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Bestseller</item>
+                <item name="most_viewed"
+                      xsi:type="object">Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\MostViewed</item>
+                <item name="toprated"
+                      xsi:type="object">Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Toprated</item>
+                <item name="wished"
+                      xsi:type="object">Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Wished</item>
+                <item name="reviews_count"
+                      xsi:type="object">Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Commented</item>
+                <item name="saving"
+                      xsi:type="object">Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Saving</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Mavenbird\Sorting\Model\Elasticsearch\Adapter\AdditionalFieldMapper">
+        <arguments>
+            <argument name="fields" xsi:type="array">
+                <item name="bestsellers" xsi:type="string">float</item>
+                <item name="most_viewed" xsi:type="string">integer</item>
+                <item name="rating_summary_field" xsi:type="string">integer</item>
+                <item name="wished" xsi:type="string">integer</item>
+                <item name="reviews_count" xsi:type="string">integer</item>
+                <item name="saving" xsi:type="string">float</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--======================================================================-->
+    <type name="Magento\Elasticsearch\Model\Adapter\FieldMapper\ProductFieldMapper">
+        <plugin name="Mavenbird_Sorting::AdditionalFieldMapper"
+                type="Mavenbird\Sorting\Model\Elasticsearch\Adapter\AdditionalFieldMapper"/>
+    </type>
+    <type name="Magento\Elasticsearch\Elasticsearch5\Model\Adapter\FieldMapper\ProductFieldMapperProxy">
+        <plugin name="Mavenbird_Sorting::AdditionalFieldMapper5"
+                type="Mavenbird\Sorting\Model\Elasticsearch\Adapter\AdditionalFieldMapper"/>
+    </type>
+    <type name="Magento\Elasticsearch\Model\Adapter\BatchDataMapper\ProductDataMapper">
+        <plugin name="Mavenbird_Sorting::AdditionalBatchDataMapper"
+                type="Mavenbird\Sorting\Plugin\Elasticsearch\Model\Adapter\BatchDataMapper\AdditionalProductDataMapper"/>
+    </type>
+    <type name="Magento\Elasticsearch\Elasticsearch5\Model\Adapter\DataMapper\ProductDataMapper">
+        <plugin name="Mavenbird_Sorting::AdditionalBatchDataMapper5"
+                type="Mavenbird\Sorting\Plugin\Elasticsearch\Model\Adapter\BatchDataMapper\AdditionalProductDataMapper"/>
+    </type>
+    <!--======================================================================-->
+    <type name="Mavenbird\ElasticSearch\Model\Indexer\Structure\EntityBuilder\Product">
+        <plugin name="Mavenbird_Sorting::AdditionalFieldMapper"
+                type="Mavenbird\Sorting\Model\Elasticsearch\Adapter\AdditionalFieldMapper"/>
+    </type>
+    <type name="Mavenbird\ElasticSearch\Model\Search\GetRequestQuery\GetAggregations\FieldMapper">
+        <plugin name="Mavenbird_Sorting::AdditionalFieldMapper"
+                type="Mavenbird\Sorting\Model\Elasticsearch\Adapter\AdditionalFieldMapper"/>
+    </type>
+    <type name="Mavenbird\ElasticSearch\Model\Indexer\Data\Product\ProductDataMapper">
+        <plugin name="Mavenbird_Sorting::AdditionalBatchDataMapper"
+                type="Mavenbird\Sorting\Plugin\Elasticsearch\Model\Adapter\BatchDataMapper\AdditionalProductDataMapper"/>
+    </type>
+    <!--======================================================================-->
+
+    <type name="Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Bestseller">
+        <arguments>
+            <argument name="resourceMethod" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Bestselling</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Commented">
+        <arguments>
+            <argument name="resourceMethod" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Commented</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\MostViewed">
+        <arguments>
+            <argument name="resourceMethod" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\MostViewed</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Toprated">
+        <arguments>
+            <argument name="resourceMethod" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Toprated</argument>
+        </arguments>
+    </type>
+    <type name="Mavenbird\Sorting\Model\Elasticsearch\Adapter\DataMapper\Wished">
+        <arguments>
+            <argument name="resourceMethod" xsi:type="object">Mavenbird\Sorting\Model\ResourceModel\Method\Wished</argument>
+        </arguments>
+    </type>
+
+    <!-- save info about reservation for configurables -->
+    <type name="Magento\InventoryReservations\Model\AppendReservations">
+        <plugin name="Mavenbird_Sorting::ReserveQtyForParents"
+                type="Mavenbird\Sorting\Plugin\InventoryReservations\Model\AppendReservationsPlugin"/>
+    </type>
+</config>

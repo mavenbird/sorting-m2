@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+
+    <operation name="CreateTestProduct" dataType="test_product" type="create" auth="adminOauth" url="/V1/products"
+               method="POST">
+        <contentType>application/json</contentType>
+        <object key="product" dataType="test_product">
+            <field key="name">string</field>
+            <field key="sku">string</field>
+            <field key="type_id">string</field>
+            <field key="attribute_set_id">integer</field>
+            <field key="visibility">integer</field>
+            <field key="price">integer</field>
+            <field key="extension_attributes">product_extension_attribute</field>
+            <array key="custom_attributes">
+                <value>custom_attribute</value>
+            </array>
+        </object>
+    </operation>
+
+    <operation name="UpdateTestProduct" dataType="test_product" type="update" auth="adminOauth"
+               url="/V1/products/{sku}" method="PUT">
+        <contentType>application/json</contentType>
+        <object key="product" dataType="test_product">
+            <array key="custom_attributes">
+                <value>custom_attribute</value>
+            </array>
+        </object>
+    </operation>
+
+    <operation name="DeleteTestProduct" dataType="test_product" type="delete" auth="adminOauth"
+               url="/V1/products/{sku}" method="DELETE">
+        <contentType>application/json</contentType>
+    </operation>
+
+    <operation name="CreateProductExtensionAttribute" dataType="product_extension_attribute" type="create">
+        <field key="stock_item">stock_item</field>
+        <array key="category_links">
+            <value>category_links</value>
+        </array>
+    </operation>
+    <operation name="CreateStockStatus" dataType="stock_item" type="create">
+        <field key="qty">integer</field>
+        <field key="is_in_stock">boolean</field>
+    </operation>
+    <operation name="CreateProductPositionInCategory" dataType="category_links" type="create">
+        <field key="position">integer</field>
+        <field key="category_id">string</field>
+    </operation>
+
+    <operation name="CreateProductCustomAttribute" dataType="custom_attribute" type="create">
+        <field key="attribute_code">string</field>
+        <field key="value">string</field>
+    </operation>
+
+</operations>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+
+    <operation name="CreateTestCartA1" dataType="test_cart" type="create" auth="adminOauth" url="/V1/carts/mine"
+               method="POST">
+        <contentType>application/json</contentType>
+        <field key="customer_id">string</field>
+    </operation>
+
+    <operation name="CreateTestCartA1WP" dataType="test_cart_item" type="create" auth="adminOauth"
+               url="/V1/carts/mine/items"
+               method="POST">
+        <contentType>application/json</contentType>
+        <object key="cartItem" dataType="test_cart_item">
+            <field key="quote_id">integer</field>
+            <field key="sku" type="string">string</field>
+            <field key="qty">integer</field>
+        </object>
+    </operation>
+
+    <operation name="CreateTestCartA1WPShippingInfo" dataType="test_cart_ship_info" type="create" auth="adminOauth"
+               url="/V1/carts/{quote_id}/shipping-information"
+               method="POST">
+        <contentType>application/json</contentType>
+        <object key="addressInformation" dataType="test_cart_ship_info">
+            <object key="shipping_address" dataType="shipping_address">
+                <field key="city">string</field>
+                <field key="region">string</field>
+                <field key="region_code">string</field>
+                <field key="region_id">integer</field>
+                <field key="country_id">string</field>
+                <array key="street">
+                    <value>string</value>
+                </array>
+                <field key="postcode">string</field>
+                <field key="firstname">string</field>
+                <field key="lastname">string</field>
+                <field key="email">string</field>
+                <field key="telephone">string</field>
+            </object>
+            <object key="billing_address" dataType="billing_address">
+                <field key="city">string</field>
+                <field key="region">string</field>
+                <field key="region_code">string</field>
+                <field key="region_id">integer</field>
+                <field key="country_id">string</field>
+                <array key="street">
+                    <value>string</value>
+                </array>
+                <field key="postcode">string</field>
+                <field key="firstname">string</field>
+                <field key="lastname">string</field>
+                <field key="email">string</field>
+                <field key="telephone">string</field>
+            </object>
+            <field key="shipping_method_code">string</field>
+            <field key="shipping_carrier_code">string</field>
+        </object>
+    </operation>
+
+    <operation name="PlaceTestCartOrder" dataType="test_cart_item" type="update" auth="adminOauth"
+               url="/V1/carts/{quote_id}/order" method="PUT">
+        <contentType>application/json</contentType>
+        <object key="paymentMethod" dataType="test_cart_item">
+            <field key="method">string</field>
+        </object>
+    </operation>
+
+</operations>

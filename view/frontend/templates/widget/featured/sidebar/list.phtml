@@ -1,0 +1,92 @@
+<?php
+/**
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+ */
+?>
+<?php
+/** @var \Mavenbird\Sorting\Block\Widget\Featured $block */
+?>
+<?php if (($_products = $block->getProductCollection()) && $_products->getSize()): ?>
+    <div class="block widget sorting block-featured-products-list">
+        <?php if ($block->getTitle()): ?>
+            <div class="block-title">
+                <strong><?= $escaper->escapeHtml(__($block->getTitle())) ?></strong>
+            </div>
+        <?php endif ?>
+        <div class="block-content">
+            <?php $suffix = $block->getNameInLayout(); ?>
+            <?php $iterator = 1; ?>
+            <ol class="product-items" id="widget-featured-products-<?= /* @noEscape */ $suffix ?>">
+                <?php foreach ($_products->getItems() as $_product): ?>
+                    <?= /* @noEscape */ ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
+                    <div class="product-item-info">
+                        <a class="product-item-photo" href="<?= /* @noEscape */ $_product->getProductUrl() ?>"
+                           title="<?= /* @noEscape */ $block->stripTags($_product->getName(), null, true) ?>">
+                            <?= $block->getImage($_product, 'featured_products_sidebar')->toHtml() ?>
+                        </a>
+                        <div class="product-item-details">
+                            <strong class="product-item-name">
+                                <a href="<?= /* @noEscape */ $_product->getProductUrl() ?>"
+                                   title="<?= /* @noEscape */ $block->stripTags($_product->getName(), null, true) ?>)" class="product-item-link">
+                                    <?= /* @noEscape */ $block->helper('Magento\Catalog\Helper\Output')->productAttribute($_product, $_product->getName(), 'name') ?>
+                                </a>
+                            </strong>
+                            <?= $block->getReviewsSummaryHtml($_product, \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW) ?>
+                            <?= /* @noEscape */ $block->getProductPriceHtml($_product, '-widget-featured-' . $suffix) ?>
+                            <div class="product-item-actions">
+                                <div class="actions-primary">
+                                    <?php if ($_product->isSaleable()): ?>
+                                        <?php if ($_product->getTypeInstance()->hasRequiredOptions($_product)): ?>
+                                            <button type="button" title="<?= /* @noEscape */ __('Add to Cart') ?>"
+                                                    class="action tocart primary"
+                                                    data-mage-init='{"redirectUrl":{"url":"<?= /* @noEscape */ $block->getAddToCartUrl($_product) ?>"}}'>
+                                                <span><?= /* @noEscape */ __('Add to Cart') ?></span>
+                                            </button>
+                                        <?php else: ?>
+                                            <?php
+                                            $postDataHelper = $block->helper('Magento\Framework\Data\Helper\PostHelper');
+                                            $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_product), ['product' => $_product->getEntityId()]);
+                                            ?>
+                                            <button type="button" title="<?= /* @noEscape */ __('Add to Cart') ?>"
+                                                    class="action tocart primary"
+                                                    data-post='<?= /* @noEscape */ $postData ?>'>
+                                                <span><?= /* @noEscape */ __('Add to Cart') ?></span>
+                                            </button>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <?php if ($_product->getIsSalable()): ?>
+                                            <div class="stock available" title="<?= /* @noEscape */ __('Availability') ?>">
+                                                <span><?= /* @noEscape */ __('In stock') ?></span>
+                                            </div>
+                                        <?php else: ?>
+                                            <div class="stock unavailable" title="<?= /* @noEscape */ __('Availability') ?>">
+                                                <span><?= /* @noEscape */ __('Out of stock') ?></span>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?= ($iterator == count($_products->getItems())+1) ? '</li>' : '' ?>
+                <?php endforeach; ?>
+            </ol>
+            <?= $block->getPagerHtml() ?>
+        </div>
+    </div>
+<?php endif; ?>

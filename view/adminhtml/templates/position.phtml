@@ -1,0 +1,57 @@
+<?php
+/**
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+ */
+?>
+<td class="label">
+    <label><?= /* @noEscape */ __('Sorting Order') ?></label>
+</td>
+<td colspan="3">
+    <table class="sorting-sort-order" id="sorting-sort-order">
+        <?php foreach ($block->getPositions() as $key => $index): ?>
+            <tr>
+                <th>
+                </th>
+                <td class="item-position">
+                    <?=/* @noEscape */ $index ?>
+                    <div class="draggable"></div>
+                    <input type="hidden"
+                           name="<?=/* @noEscape */ $block->getNamePrefix($key) ?>"
+                           value="<?=/* @noEscape */ __($index) ?>">
+                </td>
+                <th style="min-width: 69px; visibility: hidden;"></th>
+            </tr>
+        <?php endforeach ?>
+    </table>
+    <p class="note">
+        <span><?=/* @noEscape */ __('Drag and drop sorting options in the order you want them to appear for the customers.') ?></span>
+    </p>
+</td>
+<script>
+    require([
+        'jquery',
+        'collapsable'
+    ], function ($) {
+        $('#sorting-sort-order').sortable({
+            axis: 'y',
+            handle: '.item-position',
+            items: 'tr',
+            tolerance: 'pointer'
+        });
+    });
+</script>

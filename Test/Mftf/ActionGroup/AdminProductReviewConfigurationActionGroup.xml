@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminProductReviewEnablingActionGroup">
+        <amOnPage url="{{AdminReviewsGridPage.url}}"
+                  stepKey="navigateToReviewGridInAdmin1"/>
+        <click selector="{{AdminReviewsGridElementsSection.ReviewCheckbox('Test Review1')}}"
+               stepKey="clickOnReviewCheckbox1"/>
+        <click selector="{{AdminReviewsGridElementsSection.ReviewCheckbox('Test Review2')}}"
+               stepKey="clickOnReviewCheckbox2"/>
+        <click selector="{{AdminReviewsGridElementsSection.ReviewCheckbox('Test Review3')}}"
+               stepKey="clickOnReviewCheckbox3"/>
+        <click selector="{{AdminReviewsGridElementsSection.ReviewCheckbox('Test Review4')}}"
+               stepKey="clickOnReviewCheckbox4"/>
+        <click selector="{{AdminReviewsGridElementsSection.ReviewCheckbox('Test Review5')}}"
+               stepKey="clickOnReviewCheckbox5"/>
+        <click selector="{{AdminReviewsGridElementsSection.MassActionDropdown}}"
+               stepKey="clickOnMassAction1"/>
+        <click selector="{{AdminReviewsGridElementsSection.MassActionDropdownOption('Update Status')}}"
+               stepKey="clickOnOption1"/>
+        <selectOption userInput="Approved"
+                      selector="{{AdminReviewsGridElementsSection.SelectStatusDropDown}}"
+                      stepKey="selectOption2"/>
+        <click selector="{{StorefrontPDPReviewElementsSection.SubmitButton('Submit')}}"
+               stepKey="clickOnSubmitReviewButton1"/>
+    </actionGroup>
+
+</actionGroups>

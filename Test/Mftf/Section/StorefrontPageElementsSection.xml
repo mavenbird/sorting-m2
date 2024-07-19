@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="StorefrontPageElementsSection">
+        <element name="ProductsSequence" type="block"
+                 selector="//*[@class='item product product-item'][contains(string(), '{{var1}}')]/following::*[@class='item product product-item'][contains(string(), '{{var2}}')]/following::*[@class='item product product-item'][contains(string(), '{{var3}}')]"
+                 parameterized="true"/>
+    </section>
+
+    <section name="StorefrontPDPReviewElementsSection">
+        <element name="ReviewsTab" type="block"
+                 selector="//*[@id='tab-label-reviews-title']"/>
+        <element name="RatingStar" type="select"
+                 selector="//*[@id='Rating_{{var1}}_label']" parameterized="true"/>
+        <element name="ReviewDataField" type="input"
+                 selector="//*[@id='{{var1}}_field']" parameterized="true"/>
+        <element name="SubmitButton" type="button"
+                 selector="//button[contains(string(), '{{var1}}')]" parameterized="true"/>
+    </section>
+
+</sections>

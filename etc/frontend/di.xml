@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin name="Mavenbird_Sorting::catalogToolbar" type="Mavenbird\Sorting\Plugin\Catalog\Product\ProductList\Toolbar"/>
+    </type>
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Collection">
+        <plugin name="Mavenbird_Sorting::SortingMethodsProcessor" type="Mavenbird\Sorting\Plugin\Catalog\Product\Collection"/>
+    </type>
+    <type name="Magento\CatalogSearch\Block\Result">
+        <plugin name="Mavenbird_Sorting::SetDefaultSortBy" type="Mavenbird\Sorting\Plugin\Block\Result"/>
+    </type>
+    <type name="Magento\Catalog\Helper\Product\ProductList">
+        <plugin name="Mavenbird_Sorting::GetDefaultSortField" type="Mavenbird\Sorting\Plugin\Catalog\Helper\Product\ProductList"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Mavenbird_Sorting::AddIdentities" type="Mavenbird\Sorting\Plugin\Catalog\Product\ListProduct"/>
+    </type>
+    <!-- fix magento quantity_and_stock_status bug with sorting by -->
+    <type name="Magento\CatalogInventory\Model\Source\Stock">
+        <plugin name="Mavenbird_Sorting::quantity_and_stock_status" type="Mavenbird\Sorting\Plugin\CatalogInventory\Model\Source\Stock"/>
+    </type>
+</config>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontSortingByPriceLowToHighCheckingTest" extends="StorefrontSortingByPositionCheckingTest">
+
+        <annotations>
+            <features value="Mavenbird Improved Sorting"/>
+            <stories value="Sort by correct work checking"/>
+            <title value="Sort by Price: low to high checking"/>
+            <description
+                    value="Check that Sort by Price: low to high works correctly on Category Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="IMPSORT-10"/>
+            <group value="Mavenbird"/>
+            <group value="ImpSort"/>
+            <group value="ImpSortSmoke"/>
+            <group value="sortbypricelth"/>
+        </annotations>
+
+        <!-- Navigate to Category Page and sort page by Price: low to high. Check the result/-->
+
+        <selectOption userInput="Price: low to high"
+                      selector="{{StorefrontCategoryTopToolbarSection.sortByDropdown}}"
+                      stepKey="selectSortByOption1"/>
+        <seeElement
+                selector="{{StorefrontPageElementsSection.ProductsSequence('Product A7','Product A2','Product A9')}}"
+                stepKey="seeProductsSequence1"/>
+        <seeElement
+                selector="{{StorefrontPageElementsSection.ProductsSequence('Product A8','Product B1','Product A5')}}"
+                stepKey="seeProductsSequence2"/>
+
+    </test>
+</tests>
+

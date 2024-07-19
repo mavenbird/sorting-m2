@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+
+    <entity name="TestWishlistA1" type="test_wishlist">
+        <var key="product" entityType="test_product" entityKey="id"/>
+        <var key="customer_email" entityType="test_customer" entityKey="email"/>
+        <var key="customer_password" entityType="test_customer" entityKey="password"/>
+    </entity>
+    <entity name="TestWishlistA2" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistA3" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistA4" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistA5" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistA6" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistA7" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistA8" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistA9" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+    <entity name="TestWishlistB1" type="test_wishlist" extends="TestWishlistA1">
+    </entity>
+
+</entities>

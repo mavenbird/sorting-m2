@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!--
+ * Mavenbird Technologies Private Limited
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mavenbird.com/Mavenbird-Module-License.txt
+ *
+ * =================================================================
+ *
+ * @category   Mavenbird
+ * @package    Mavenbird_Sorting
+ * @author     Mavenbird Team
+ * @copyright  Copyright (c) 2018-2024 Mavenbird Technologies Private Limited ( http://mavenbird.com )
+ * @license    http://mavenbird.com/Mavenbird-Module-License.txt
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+
+    <test name="StorefrontSortingByRelevanceCheckingTest" extends="StorefrontSortingByPositionCheckingTest">
+
+        <annotations>
+            <features value="Mavenbird Improved Sorting"/>
+            <stories value="Sort by correct work checking"/>
+            <title value="Sort by Relevance checking"/>
+            <description
+                    value="Check that Sort by Relevance works correctly on Category Page"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="IMPSORT-12"/>
+            <group value="Mavenbird"/>
+            <group value="ImpSort"/>
+            <group value="ImpSortSmoke"/>
+            <group value="sortbyrelevance"/>
+        </annotations>
+
+        <!-- Navigate to Search Result Page and sort page by Relevance. Check the result/-->
+
+        <amOnPage url="{{SearchResultPage.url('redtst')}}" stepKey="navigateToRequiredPage1"/>
+        <selectOption userInput="Relevance"
+                      selector="{{StorefrontCategoryTopToolbarSection.sortByDropdown}}"
+                      stepKey="selectSortByOption1"/>
+        <seeElement
+                selector="{{StorefrontPageElementsSection.ProductsSequence('Product A5','Product A3','Product A1')}}"
+                stepKey="seeProductsSequence1"/>
+        <click selector="{{StorefrontCategoryTopToolbarSection.sortDirectionDesc}}"
+               stepKey="setAscDescConfiguration1"/>
+        <seeElement
+                selector="{{StorefrontPageElementsSection.ProductsSequence('Product A9','Product A8','Product B1')}}"
+                stepKey="seeProductsSequence2"/>
+
+    </test>
+</tests>
+
