@@ -20,7 +20,7 @@
 
 namespace Mavenbird\Sorting\Model\ResourceModel\Method;
 
-use \Zend\Db\Sql\Select;
+use \Magento\Framework\DB\Select; // Corrected namespace
 
 /**
  * Class Bestselling
@@ -30,7 +30,7 @@ use \Zend\Db\Sql\Select;
 class Bestselling extends AbstractIndexMethod
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getIndexTableName()
     {
@@ -38,7 +38,7 @@ class Bestselling extends AbstractIndexMethod
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getSortingColumnName()
     {
@@ -46,7 +46,7 @@ class Bestselling extends AbstractIndexMethod
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function doReindex()
     {
@@ -185,9 +185,9 @@ class Bestselling extends AbstractIndexMethod
     }
 
     /**
-     * This calculation can be very slow, add Grouped product type to ignore for improve speed
-     * Count grouped products ordered qty
-     * Sum of all simple qty which grouped by parent product and store
+     * Calculate Grouped
+     *
+     * @return void
      */
     private function calculateGrouped()
     {
@@ -239,7 +239,7 @@ class Bestselling extends AbstractIndexMethod
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function apply($collection, $currDir)
     {
